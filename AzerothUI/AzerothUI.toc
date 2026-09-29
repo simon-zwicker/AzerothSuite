@@ -1,0 +1,9 @@
+
+## Interface: 16001
+## Title: AzerothUI
+## Notes: Shared UI framework for AzerothSuite addons.
+## Author: Simon Zwicker
+## Version: 0.1.0
+
+Localization\enUS.lua
+Localization\deDE.lua
