@@ -1,87 +1,83 @@
 local AUI = _G.AzerothUI
 local Theme = AUI.UI.Theme
+local Drawing = AUI.UI.Drawing
 local Window = {}
-
-local DEFAULT_WIDTH = 600
-local DEFAULT_HEIGHT = 400
-
-local function ApplyColor(texture, color)
-    texture:SetColorTexture(
-        color[1],
-        color[2],
-        color[3],
-        color[4]
-    )
-end
 
 local function CreateBackground(frame)
     local background = frame:CreateTexture(nil, "BACKGROUND")
     background:SetAllPoints()
-    ApplyColor(background, Theme.Colors.Background)
+    Drawing:ApplyColor(background, Theme.Colors.Background)
 end
 
 local function CreateBorder(frame)
-    local borderSize = Theme.Sizes.Border
+    local borderSize = Theme.Sizes.Border.Outer
     local color = Theme.Colors.Border
     
     local top = frame:CreateTexture(nil, "BORDER")
     top:SetPoint("TOPLEFT", frame, "TOPLEFT")
     top:SetPoint("TOPRIGHT", frame, "TOPRIGHT")
     top:SetHeight(borderSize)
-    ApplyColor(top, color)
+    Drawing:ApplyColor(top, color)
 
     local bottom = frame:CreateTexture(nil, "BORDER")
     bottom:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT")
     bottom:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT")
     bottom:SetHeight(borderSize)
-    ApplyColor(bottom, color)
+    Drawing:ApplyColor(bottom, color)
 
     local left = frame:CreateTexture(nil, "BORDER")
     left:SetPoint("TOPLEFT", frame, "TOPLEFT")
     left:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT")
     left:SetHeight(borderSize)
-    ApplyColor(left, color)
+    Drawing:ApplyColor(left, color)
 
     local right = frame:CreateTexture(nil, "BORDER")
     right:SetPoint("TOPRIGHT", frame, "TOPRIGHT")
     right:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT")
     right:SetHeight(borderSize)
-    ApplyColor(right, color)
+    Drawing:ApplyColor(right, color)
 end
 
 local function CreateHeader(frame)
+    local borderSize = Theme.Sizes.Border.Outer
+
     local header = CreateFrame("Frame", nil, frame)
-    header:SetPoint("TOPLEFT", frame, "TOPLEFT", Theme.Sizes.Border, -Theme.Sizes.Border)
-    header:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -Theme.Sizes.Border, -Theme.Sizes.Border)
-    header:SetHeight(Theme.Sizes.Header)
+    header:SetPoint("TOPLEFT", frame, "TOPLEFT", borderSize, -borderSize)
+    header:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -borderSize, -borderSize)
+    header:SetHeight(Theme.Sizes.Header.Height)
     header:SetFrameLevel(frame:GetFrameLevel() + 1)
+
+    local divider = header:CreateTexture(nil, "ARTWORK")
+    divider:SetPoint("BOTTOMLEFT", header, "BOTTOMLEFT")
+    divider:SetPoint("BOTTOMRIGHT", header, "BOTTOMRIGHT")
+    divider:SetHeight(Theme.Sizes.Header.Divider)
+    Drawing:ApplyColor(divider, Theme.Colors.BorderHighlight)
 
     local background = header:CreateTexture(nil, "BACKGROUND")
     background:SetAllPoints()
-    ApplyColor(background, Theme.Colors.Surface)
+    Drawing:ApplyColor(background, Theme.Colors.Surface)
 
     return header
 end
 
 local function CreateTitle(header, title)
-    local text = header:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-    text:SetPoint("LEFT", header, "LEFT", Theme.Spacing.MD, 0)
+    local text = header:CreateFontString(nil, "OVERLAY", Theme.Fonts.Title.Template)
+    text:SetPoint("LEFT", header, "LEFT", Theme.Spacing.LG, 0)
     text:SetText(title)
-    text:SetTextColor(Theme.Colors.Text[1], Theme.Colors.Text[2], Theme.Colors.Text[3], Theme.Colors.Text[4])
+    Drawing:ApplyTextColor(text, Theme.Colors.Gold)
 
     return text
 end
 
 local function CreateCloseButton(header, frame)
     local button = CreateFrame("Button", nil, header)
-    button:SetSize(Theme.Sizes.Button, Theme.Sizes.Button)
+    button:SetSize(Theme.Sizes.Button.Normal, Theme.Sizes.Button.Normal)
     button:SetPoint("RIGHT", header, "RIGHT", -Theme.Spacing.XS, 0)
 
-    local text = button:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    local text = button:CreateFontString(nil, "OVERLAY", Theme.Fonts.Body.Template)
     text:SetPoint("CENTER")
     text:SetText("x")
-    text:SetTextColor(Theme.Colors.TextMuted[1], Theme.Colors.TextMuted[2], Theme.Colors.TextMuted[3],
-        Theme.Colors.TextMuted[4])
+    Drawing:ApplyTextColor(text, Theme.Colors.TextMuted)
 
     button:SetScript(
         "OnClick",
@@ -106,8 +102,8 @@ function Window:Create(options)
     
     local frame = CreateFrame("Frame", options.name, UIParent)
     frame:SetSize(
-        options.width or DEFAULT_WIDTH,
-        options.height or DEFAULT_HEIGHT
+        options.width or Theme.Sizes.Window.Width,
+        options.height or Theme.Sizes.Window.Height
     )
     frame:SetPoint("CENTER")
     frame:SetFrameLevel(100)

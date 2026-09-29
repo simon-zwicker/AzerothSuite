@@ -12,6 +12,7 @@ Localization\enUS.lua
 Localization\deDE.lua
 
 UI\Theme.lua
+UI\Utils\Drawing.lua
 UI\Components\Window.lua
 
 Debug\Demo.lua
