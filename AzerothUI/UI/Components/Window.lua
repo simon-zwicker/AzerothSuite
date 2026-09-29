@@ -10,40 +10,16 @@ local function CreateBackground(frame)
 end
 
 local function CreateBorder(frame)
-    local borderSize = Theme.Sizes.Border.Outer
-    local color = Theme.Colors.Border
-    
-    local top = frame:CreateTexture(nil, "BORDER")
-    top:SetPoint("TOPLEFT", frame, "TOPLEFT")
-    top:SetPoint("TOPRIGHT", frame, "TOPRIGHT")
-    top:SetHeight(borderSize)
-    Drawing:ApplyColor(top, color)
-
-    local bottom = frame:CreateTexture(nil, "BORDER")
-    bottom:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT")
-    bottom:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT")
-    bottom:SetHeight(borderSize)
-    Drawing:ApplyColor(bottom, color)
-
-    local left = frame:CreateTexture(nil, "BORDER")
-    left:SetPoint("TOPLEFT", frame, "TOPLEFT")
-    left:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT")
-    left:SetHeight(borderSize)
-    Drawing:ApplyColor(left, color)
-
-    local right = frame:CreateTexture(nil, "BORDER")
-    right:SetPoint("TOPRIGHT", frame, "TOPRIGHT")
-    right:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT")
-    right:SetHeight(borderSize)
-    Drawing:ApplyColor(right, color)
+    Drawing:CreateBorder(frame, 0, Theme.Sizes.Border.Outer, Theme.Colors.BorderOuter)
+    Drawing:CreateBorder(frame, Theme.Sizes.Border.Inset, Theme.Sizes.Border.Inner, Theme.Colors.BorderInner)
 end
 
 local function CreateHeader(frame)
-    local borderSize = Theme.Sizes.Border.Outer
+    local inset = Theme.Sizes.Border.Inset + 1
 
     local header = CreateFrame("Frame", nil, frame)
-    header:SetPoint("TOPLEFT", frame, "TOPLEFT", borderSize, -borderSize)
-    header:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -borderSize, -borderSize)
+    header:SetPoint("TOPLEFT", frame, "TOPLEFT", inset, -inset)
+    header:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -inset, -inset)
     header:SetHeight(Theme.Sizes.Header.Height)
     header:SetFrameLevel(frame:GetFrameLevel() + 1)
 
