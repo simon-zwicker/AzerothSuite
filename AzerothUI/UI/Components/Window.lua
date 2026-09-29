@@ -23,15 +23,14 @@ local function CreateHeader(frame)
     header:SetHeight(Theme.Sizes.Header.Height)
     header:SetFrameLevel(frame:GetFrameLevel() + 1)
 
-    local divider = header:CreateTexture(nil, "ARTWORK")
+    local divider = Drawing:CreateDivider(frame, Theme.Colors.Gold)
     divider:SetPoint("BOTTOMLEFT", header, "BOTTOMLEFT")
     divider:SetPoint("BOTTOMRIGHT", header, "BOTTOMRIGHT")
-    divider:SetHeight(Theme.Sizes.Header.Divider)
     Drawing:ApplyColor(divider, Theme.Colors.BorderHighlight)
 
     local background = header:CreateTexture(nil, "BACKGROUND")
     background:SetAllPoints()
-    Drawing:ApplyColor(background, Theme.Colors.Surface)
+    Drawing:ApplyColor(background, Theme.Colors.HeaderTop)
 
     return header
 end
@@ -46,23 +45,30 @@ local function CreateTitle(header, title)
 end
 
 local function CreateCloseButton(header, frame)
-    local button = CreateFrame("Button", nil, header)
-    button:SetSize(Theme.Sizes.Button.Normal, Theme.Sizes.Button.Normal)
-    button:SetPoint("RIGHT", header, "RIGHT", -Theme.Spacing.XS, 0)
-
-    local text = button:CreateFontString(nil, "OVERLAY", Theme.Fonts.Body.Template)
-    text:SetPoint("CENTER")
-    text:SetText("x")
-    Drawing:ApplyTextColor(text, Theme.Colors.TextMuted)
-
-    button:SetScript(
-        "OnClick",
-        function()
-            frame:Hide()
-        end
+    local button = AUI.UI.IconButton:Create(
+        {
+            parent = header,
+            text = "X",
+            onClick = function()
+                frame:Hide()
+            end   
+        }
     )
+    button:SetPoint("RIGHT", header, "RIGHT", -Theme.Spacing.SM, 0)
 
     return button
+end
+
+---@param frame Frame
+---@param header Frame
+---@return Frame
+local function CreateContent(frame, header)
+    local content = CreateFrame("Frame", nil, frame)
+
+    content:SetPoint("TOPLEFT", header, "BOTTOMLEFT", Theme.Spacing.LG, -Theme.Spacing.LG)
+    content:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -Theme.Spacing.LG, Theme.Spacing.LG)
+
+    return content
 end
 
 ---@class AzerothUIWindowOptions
@@ -71,11 +77,14 @@ end
 ---@field width number?
 ---@field height number?
 
+---@class AzerothUIWindow : Frame
+---@field Content Frame
+
 ---@param options AzerothUIWindowOptions?
----@return Frame
+---@return AzerothUIWindow
 function Window:Create(options)
     options = options or {}
-    
+
     local frame = CreateFrame("Frame", options.name, UIParent)
     frame:SetSize(
         options.width or Theme.Sizes.Window.Width,
@@ -83,13 +92,16 @@ function Window:Create(options)
     )
     frame:SetPoint("CENTER")
     frame:SetFrameLevel(100)
-    
+
     CreateBackground(frame)
     CreateBorder(frame)
 
     local header = CreateHeader(frame)
     CreateTitle(header, options.title or "")
     CreateCloseButton(header, frame)
+
+    local content = CreateContent(frame, header)
+    frame.Content = content
 
     return frame
 end

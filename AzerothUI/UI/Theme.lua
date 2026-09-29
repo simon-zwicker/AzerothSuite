@@ -14,6 +14,8 @@ Theme.Colors = {
     GoldMuted = { 0.55, 0.42, 0.20, 1.0, },
     Text = { 0.91, 0.87, 0.78, 1.0, },
     TextMuted = { 0.57, 0.54, 0.48, 1.0 },
+    HeaderTop = { 0.16, 0.12, 0.07, 1.0, },
+    HeaderBottom = { 0.035, 0.028, 0.020, 1.0, },
     HeaderHighlight = { 0.16, 0.12, 0.07, 1.0 },
 }
 

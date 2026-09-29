@@ -13,6 +13,9 @@ Localization\deDE.lua
 
 UI\Theme.lua
 UI\Utils\Drawing.lua
+
+UI\Components\Text.lua
+UI\Components\IconButton.lua
 UI\Components\Window.lua
 
 Debug\Demo.lua

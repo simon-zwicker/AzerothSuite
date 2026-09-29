@@ -26,6 +26,23 @@ local function CreateBorderLine(frame, point1, point2, offsetX1, offsetY1, offse
     Drawing:ApplyColor(texture, color)
 end
 
+---@param parent Frame
+---@param color table
+---@param height number?
+---@return Texture
+function Drawing:CreateDivider(parent, color, height)
+    local divider = parent:CreateTexture(nil, "ARTWORK")
+    divider:SetHeight(height or 1)
+    divider:SetColorTexture(
+        color[1],
+        color[2],
+        color[3],
+        color[4]
+    )
+
+    return divider
+end
+
 ---@param frame Frame
 ---@param inset number
 ---@param size number
