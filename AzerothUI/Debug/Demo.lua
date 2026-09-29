@@ -9,8 +9,8 @@ local function ShowDemo()
             {
                 name = "AzerothUIDemoWindow",
                 title = "AzerothUI Demo",
-                width = 600,
-                height = 400,
+                width = 1200,
+                height = 800,
             }
         )
     end
