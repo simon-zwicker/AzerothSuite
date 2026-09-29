@@ -1,7 +1,10 @@
-local AUI = AzerothUI
+local AUI = _G.AzerothUI
+
 local DEFAULT_LOCALE = "enUS"
 
 ---@class AzerothUILocalization
+---@field Register fun(self: AzerothUILocalization, namespace: string, locale: string, strings: table<string, string>)
+---@field Get fun(self: AzerothUILocalization, namespace: string): table<string, string>
 local Localization = {}
 
 ---@type table<string, table<string, table<string, string>>>

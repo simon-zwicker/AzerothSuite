@@ -1,4 +1,4 @@
-local AUI = AzerothUI
+local AUI = _G.AzerothUI
 
 AUI.Localization:Register(
     "AzerothUI",

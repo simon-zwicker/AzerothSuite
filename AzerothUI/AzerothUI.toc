@@ -5,5 +5,13 @@
 ## Author: Simon Zwicker
 ## Version: 0.1.0
 
+Core\Init.lua
+Core\Localization.lua
+
 Localization\enUS.lua
 Localization\deDE.lua
+
+UI\Theme.lua
+UI\Components\Window.lua
+
+Debug\Demo.lua

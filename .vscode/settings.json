@@ -17,7 +17,11 @@
     "Lua.diagnostics.globals": [
         "DEFAULT",
         "CLOSE",
-        "SETTINGS"
+        "SETTINGS",
+        "Background",
+        "SlashCmdList",
+        "ChatFrame1",
+        "ChatFrame1EditBox"
     ],
     "Lua.diagnostics.disable": [
         "assign-type-mismatch"

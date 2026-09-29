@@ -7,11 +7,9 @@ local ADDON_NAME = ...
 ---@field Localization AzerothUILocalization
 ---@field GetVersion fun(self: AzerothUI): string
 
----@diagnostic disable-next-line: global-element
-AzerothUI = AzerothUI or {}
-
 ---@type AzerothUI
-local AUI = AzerothUI
+local AUI = _G.AzerothUI or {}
+_G.AzerothUI = AUI
 
 AUI.Name = ADDON_NAME
 AUI.Version = "0.1.0"
