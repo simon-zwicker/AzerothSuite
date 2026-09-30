@@ -21,7 +21,8 @@
         "Background",
         "SlashCmdList",
         "ChatFrame1",
-        "ChatFrame1EditBox"
+        "ChatFrame1EditBox",
+        "Square"
     ],
     "Lua.diagnostics.disable": [
         "assign-type-mismatch"

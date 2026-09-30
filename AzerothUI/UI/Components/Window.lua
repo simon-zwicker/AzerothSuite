@@ -1,51 +1,51 @@
 local AUI = _G.AzerothUI
 local Theme = AUI.UI.Theme
 local Drawing = AUI.UI.Drawing
+local IconButton = AUI.UI.IconButton
 local Window = {}
 
 local function CreateBackground(frame)
     local background = frame:CreateTexture(nil, "BACKGROUND")
     background:SetAllPoints()
-    Drawing:ApplyColor(background, Theme.Colors.Background)
+    Drawing:ApplyColor(background, Theme.Color.Background.Primary)
 end
 
 local function CreateBorder(frame)
-    Drawing:CreateBorder(frame, 0, Theme.Sizes.Border.Outer, Theme.Colors.BorderOuter)
-    Drawing:CreateBorder(frame, Theme.Sizes.Border.Inset, Theme.Sizes.Border.Inner, Theme.Colors.BorderInner)
+    Drawing:CreateBorder(frame, 0, Theme.Size.Border.Outer, Theme.Color.Border.Outer)
+    Drawing:CreateBorder(frame, Theme.Size.Border.Inset, Theme.Size.Border.Inner, Theme.Color.Border.Inner)
 end
 
 local function CreateHeader(frame)
-    local inset = Theme.Sizes.Border.Inset + 1
+    local inset = Theme.Size.Border.Inset + 1
 
     local header = CreateFrame("Frame", nil, frame)
     header:SetPoint("TOPLEFT", frame, "TOPLEFT", inset, -inset)
     header:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -inset, -inset)
-    header:SetHeight(Theme.Sizes.Header.Height)
+    header:SetHeight(Theme.Size.Header.Height)
     header:SetFrameLevel(frame:GetFrameLevel() + 1)
 
-    local divider = Drawing:CreateDivider(frame, Theme.Colors.Gold)
+    local divider = Drawing:CreateDivider(frame, Theme.Color.Border.Highlighted)
     divider:SetPoint("BOTTOMLEFT", header, "BOTTOMLEFT")
     divider:SetPoint("BOTTOMRIGHT", header, "BOTTOMRIGHT")
-    Drawing:ApplyColor(divider, Theme.Colors.BorderHighlight)
 
     local background = header:CreateTexture(nil, "BACKGROUND")
     background:SetAllPoints()
-    Drawing:ApplyColor(background, Theme.Colors.HeaderTop)
+    Drawing:ApplyColor(background, Theme.Color.Header.Normal)
 
     return header
 end
 
 local function CreateTitle(header, title)
-    local text = header:CreateFontString(nil, "OVERLAY", Theme.Fonts.Title.Template)
+    local text = header:CreateFontString(nil, "OVERLAY", Theme.Font.Title.Template)
     text:SetPoint("LEFT", header, "LEFT", Theme.Spacing.LG, 0)
     text:SetText(title)
-    Drawing:ApplyTextColor(text, Theme.Colors.Gold)
+    Drawing:ApplyTextColor(text, Theme.Color.Gold)
 
     return text
 end
 
 local function CreateCloseButton(header, frame)
-    local button = AUI.UI.IconButton:Create(
+    local button = IconButton:Create(
         {
             parent = header,
             text = "X",
@@ -87,8 +87,8 @@ function Window:Create(options)
 
     local frame = CreateFrame("Frame", options.name, UIParent)
     frame:SetSize(
-        options.width or Theme.Sizes.Window.Width,
-        options.height or Theme.Sizes.Window.Height
+        options.width or Theme.Size.Window.Width,
+        options.height or Theme.Size.Window.Height
     )
     frame:SetPoint("CENTER")
     frame:SetFrameLevel(100)

@@ -2,51 +2,65 @@ local AUI = _G.AzerothUI
 local Theme = AUI.UI.Theme
 local Drawing = AUI.UI.Drawing
 local Text = AUI.UI.Text
+local Button = AUI.UI.Button
+local IconButton = AUI.UI.IconButton
+local Window = AUI.UI.Window
 local SlashCmdList = _G["SlashCmdList"]
 
 local demoWindow
 
----@param parent Frame
----@param title string
+---@param content Frame
 ---@return FontString
-local function CreateSectionTitle(parent, title)
-    local text = parent:CreateFontString(nil, "OVERLAY", Theme.Fonts.Title.Template)
-    text:SetText(title)
-    Drawing:ApplyTextColor(text, Theme.Colors.Gold)
+local function BuildDemoTextContent(content)
+    local typographyTitle = Text:CreateSectionTitle(content, "Typography")
 
-    return text
+    local titleExample = Text:CreateTitle(content, "AzerothUI Title")
+    titleExample:SetPoint("TOPLEFT", typographyTitle, "BOTTOMLEFT", 0, -Theme.Spacing.XL)
+
+    local bodyExample = Text:CreateBody(content, "Normal body text")
+    bodyExample:SetPoint("TOPLEFT", titleExample, "BOTTOMLEFT", 0, -Theme.Spacing.SM)
+
+    local mutedExample = Text:CreateMuted(content, "Muted secondary text")
+    mutedExample:SetPoint("TOPLEFT", bodyExample, "BOTTOMLEFT", 0, -Theme.Spacing.SM)
+
+    local labelExample = Text:CreateLabel(content, "Label text")
+    labelExample:SetPoint("TOPLEFT", mutedExample, "BOTTOMLEFT", 0, -Theme.Spacing.MD)
+
+    local smallExample = Text:CreateSmall(content, "Small secondary information")
+    smallExample:SetPoint("TOPLEFT", labelExample, "BOTTOMLEFT", 0, -Theme.Spacing.SM)
+
+    return smallExample
 end
 
----@param parent Frame
----@param textValue string
----@param muted boolean?
----@return FontString
-local function CreateText(parent, textValue, muted)
-    local text = parent:CreateFontString(nil, "OVERLAY", Theme.Fonts.Body.Template)
-    text:SetText(textValue)
-    Drawing:ApplyTextColor(text, muted and Theme.Colors.TextMuted or Theme.Colors.Text)
+---@param content Frame
+---@param anchor Region
+local function BuildDemoButtonContent(content, anchor)
+    local buttonTitle = Text:CreateSectionTitle(content, "Buttons", anchor)
+    
+    local button = Button:Create(content, "Normal Button")
+    button:SetPoint("TOPLEFT", buttonTitle, "BOTTOMLEFT", 0, -Theme.Spacing.XL)
 
-    return text
+    local disableButton = Button:Create(content, "Disabled Butto")
+    disableButton:SetPoint("TOPLEFT", button, "BOTTOMLEFT", 0, -Theme.Spacing.MD)
+    disableButton:DisableButton()
+    
+    button:SetScript(
+        "OnClick",
+        function ()
+            print("AzerothUI Button clicked")
+        end
+    )
 end
 
 ---@param content Frame
 local function BuildDemoContent(content)
-    local typographyTitle = Text:CreateTitle(content, "Typography")
-    typographyTitle:SetPoint("TOPLEFT", content, "TOPLEFT")
-
-    local titleExample = CreateSectionTitle(content, "AzerothUI Title")
-    titleExample:SetPoint("TOPLEFT", typographyTitle, "BOTTOMLEFT", 0, -Theme.Spacing.LG)
-
-    local bodyExample = CreateText(content, "Normal body text")
-    bodyExample:SetPoint("TOPLEFT", titleExample, "BOTTOMLEFT", 0, -Theme.Spacing.SM)
-
-    local mutedExample = CreateText(content, "Muted secondary text", true)
-    mutedExample:SetPoint("TOPLEFT", bodyExample, "BOTTOMLEFT", 0, -Theme.Spacing.SM)
+    local textAnchor = BuildDemoTextContent(content)
+    BuildDemoButtonContent(content, textAnchor)
 end
 
 local function ShowDemo()
     if not demoWindow then
-        demoWindow = AUI.UI.Window:Create(
+        demoWindow = Window:Create(
             {
                 name = "AzerothUIDemoWindow",
                 title = "AzerothUI Demo",

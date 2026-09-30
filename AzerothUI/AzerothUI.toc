@@ -11,10 +11,16 @@ Core\Localization.lua
 Localization\enUS.lua
 Localization\deDE.lua
 
-UI\Theme.lua
+UI\Theme\Theme.lua
+UI\Theme\Color.lua
+UI\Theme\Font.lua
+UI\Theme\Size.lua
+UI\Theme\Spacing.lua
+
 UI\Utils\Drawing.lua
 
 UI\Components\Text.lua
+UI\Components\Button.lua
 UI\Components\IconButton.lua
 UI\Components\Window.lua
 
