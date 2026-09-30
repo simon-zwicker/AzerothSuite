@@ -1,8 +1,6 @@
 local AUI = _G.AzerothUI
 local Theme = AUI.UI.Theme
 
-print("Loaded Spacing.lua")
-
 Theme.Spacing = {
     XS = 4,
     SM = 8,

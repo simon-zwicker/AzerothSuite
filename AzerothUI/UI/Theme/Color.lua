@@ -1,8 +1,6 @@
 local AUI = _G.AzerothUI
 local Theme = AUI.UI.Theme
 
-print("Loaded Color.lua")
-
 Theme.Color = {
     Background = {
         Primary = {
