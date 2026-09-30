@@ -1,0 +1,19 @@
+## Interface: 16001
+## Title: AzerothQuest
+## Notes: Immersive quest tracker for AzerothSuite.
+## Author: Simon Zwicker
+## Version: 0.1.0
+## Dependencies: AzerothUI
+## SavedVariables: AzerothQuestDB
+
+Core\Init.lua
+
+Localization\enUS.lua
+Localization\deDE.lua
+
+Quest\QuestService.lua
+
+UI\Tracker.lua
+
+Core\Commands.lua
+Core\Events.lua
