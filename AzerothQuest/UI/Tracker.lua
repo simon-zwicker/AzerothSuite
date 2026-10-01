@@ -6,6 +6,8 @@ local AUI = _G.AzerothUI
 local Theme = AUI.UI.Theme
 local Text = AUI.UI.Text
 local Window = AUI.UI.Window
+local QuestRow = AQ.UI.QuestRow
+local Quest = AQ.Quest
 local L11n = AUI.Localization:Get("AzerothQuest")
 
 ---@class AzerothQuestTracker
@@ -15,9 +17,21 @@ local trackerWindow
 
 local function BuildContent(content)
     local title = Text:CreateSectionTitle(content, L11n.TRACKER_SECTION_TRACKED)
-    local emptyText = Text:CreateMuted(content, L11n.TRACKER_EMPTY)
+    local quests = Quest:GetTrackedQuests()
 
-    emptyText:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -Theme.Spacing.LG)
+    if #quests == 0 then
+        local emptyText = Text:CreateMuted(content, L11n.TRACKER_EMPTY)
+        emptyText:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -Theme.Spacing.LG)
+        return
+    end
+
+    local lastAnchor = title
+
+    for _, quest in ipairs(quests) do
+        local row = QuestRow:Create(content, quest)
+        row:SetPoint("TOPLEFT", lastAnchor, "BOTTOMLEFT", 0, -Theme.Spacing.LG)
+        lastAnchor = row
+    end
 end
 
 function Tracker:Create()

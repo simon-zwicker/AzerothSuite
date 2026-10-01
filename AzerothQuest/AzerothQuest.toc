@@ -13,6 +13,7 @@ Localization\deDE.lua
 
 Quest\QuestService.lua
 
+UI\QuestRow.lua
 UI\Tracker.lua
 
 Core\Commands.lua

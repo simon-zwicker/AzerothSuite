@@ -7,5 +7,6 @@ AUI.Localization:Register(
         TRACKER_TITLE = "AzerothQuest",
         TRACKER_SECTION_TRACKED = "Verfolgte Quests",
         TRACKER_EMPTY = "Keine verfolgten Quests.",
+        OBJECTIVE_COMPLETED = "Abgeschlossen",
     }
 )

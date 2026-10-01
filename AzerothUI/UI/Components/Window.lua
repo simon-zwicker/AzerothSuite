@@ -85,6 +85,7 @@ end
 function Window:Create(options)
     options = options or {}
 
+    ---@type AzerothUIWindow
     local frame = CreateFrame("Frame", options.name, UIParent)
     frame:SetSize(
         options.width or Theme.Size.Window.Width,
